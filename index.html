@@ -13,35 +13,36 @@
           var hand = frame.hands[0];
           if (hand){
             var dot = Leap.vec3.dot(hand.palmNormal, hand.thumb.direction);
-    			if (dot > 0.34){
-    				dot = "1"
-    			}else{
-    				dot = ""
-    			}
-    			var dot1 = Leap.vec3.dot(hand.direction, hand.indexFinger.direction);
-    			if (dot1 < 0.38){
-    				dot1 = "2"
-    			}else{
-    				dot1 = ""
-    			}
-    			var dot2 = Leap.vec3.dot(hand.direction, hand.middleFinger.direction);
-    			if (dot2 < 0.38){
-    				dot2 = "3"
-    			}else{
-    				dot2 = ""
-    			}
-    			var dot3 = Leap.vec3.dot(hand.direction, hand.ringFinger.direction);
-    			if (dot3 < 0.38){
-    				dot3 = "4"
-    			}else{
-    				dot3 = ""
-    			}
-    			var dot4 = Leap.vec3.dot(hand.direction, hand.pinky.direction);
-    			if (dot4 < 0.38){
-    				dot4 = "5"
-    			}else{
-    				dot4 = ""
-    			}
+
+      			if (dot > 0.34){
+      				dot = "1"
+      			}else{
+      				dot = ""
+      			}
+      			var dot1 = Leap.vec3.dot(hand.direction, hand.indexFinger.direction);
+      			if (dot1 < 0.38){
+      				dot1 = "2"
+      			}else{
+      				dot1 = ""
+      			}
+      			var dot2 = Leap.vec3.dot(hand.direction, hand.middleFinger.direction);
+      			if (dot2 < 0.38){
+      				dot2 = "3"
+      			}else{
+      				dot2 = ""
+      			}
+      			var dot3 = Leap.vec3.dot(hand.direction, hand.ringFinger.direction);
+      			if (dot3 < 0.38){
+      				dot3 = "4"
+      			}else{
+      				dot3 = ""
+      			}
+      			var dot4 = Leap.vec3.dot(hand.direction, hand.pinky.direction);
+      			if (dot4 < 0.38){
+      				dot4 = "5"
+      			}else{
+      				dot4 = ""
+      			}
             console.assert(!isNaN(dot));
 
             todoInputForm.value = String(dot) + String(dot1) + String(dot2) + String(dot3) + String(dot4) ;
@@ -51,16 +52,25 @@
               var resultElement = document.getElementById('postResult');
               var todoTitle = document.getElementById('todoTitle').value;
               resultElement.innerHTML = '';
-
+              console.log(previous_val);
               if (previous_val == ""){
-                axios.post('https://6fdd4991.ngrok.io/', {
+                console.log("6");
+                axios.post('https://eded1826.ngrok.io/', {
                   command: "6",
                 })
               }
-              axios.post('https://6fdd4991.ngrok.io/', {
+              axios.post('https://eded1826.ngrok.io/', {
                 command: previous_val,
               })
 
+            }
+          }else{
+            if (previous_val != 6){
+              previous_val = "6"
+              console.log(6);
+              axios.post('https://eded1826.ngrok.io/', {
+                command: "6",
+              })
             }
           }
         }
