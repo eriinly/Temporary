@@ -1,0 +1,17 @@
+{
+  "name": "makeuoft-arm",
+  "version": "1.0.0",
+  "description": "New Arm Post request",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
+  }
+}
