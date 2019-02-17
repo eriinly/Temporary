@@ -1,30 +1,117 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Make UofT</title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
-  </head>
-  <body>
-    <div class="container">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Math - Leap</title>
 
-       <div class="panel panel-primary">
-        <div class="panel-heading">POST Request</div>
-        <div class="panel-body">
+    <script src="../leap-0.6.4.js"></script>
+
+    <script>
+      var previous_val = " "
+      Leap.loop({
+
+        frame: function(frame){
+          var hand = frame.hands[0];
+          if (hand){
+            var dot = Leap.vec3.dot(hand.palmNormal, hand.thumb.direction);
+    			if (dot > 0.34){
+    				dot = "1"
+    			}else{
+    				dot = ""
+    			}
+    			var dot1 = Leap.vec3.dot(hand.direction, hand.indexFinger.direction);
+    			if (dot1 < 0.38){
+    				dot1 = "2"
+    			}else{
+    				dot1 = ""
+    			}
+    			var dot2 = Leap.vec3.dot(hand.direction, hand.middleFinger.direction);
+    			if (dot2 < 0.38){
+    				dot2 = "3"
+    			}else{
+    				dot2 = ""
+    			}
+    			var dot3 = Leap.vec3.dot(hand.direction, hand.ringFinger.direction);
+    			if (dot3 < 0.38){
+    				dot3 = "4"
+    			}else{
+    				dot3 = ""
+    			}
+    			var dot4 = Leap.vec3.dot(hand.direction, hand.pinky.direction);
+    			if (dot4 < 0.38){
+    				dot4 = "5"
+    			}else{
+    				dot4 = ""
+    			}
+            console.assert(!isNaN(dot));
+
+            todoInputForm.value = String(dot) + String(dot1) + String(dot2) + String(dot3) + String(dot4) ;
+            if (previous_val != todoInputForm.value){
+              previous_val = todoInputForm.value;
+              console.log(todoInputForm.value);
+              var resultElement = document.getElementById('postResult');
+              var todoTitle = document.getElementById('todoTitle').value;
+              resultElement.innerHTML = '';
+
+              if (previous_val == ""){
+                axios.post('https://29900d81.ngrok.io/', {
+                  command: "6",
+                })
+              }
+              axios.post('https://29900d81.ngrok.io/', {
+                command: previous_val,
+              })
+
+            }
+          }
+        }
+
+      });
+
+    </script>
+
+    <style>
+      body {
+        line-height: 2em;
+        font-family: Helvetica;
+      }
+      #out{
+        font-weight: bold;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+  <p>
+    This page demonstrates the usage of basic vector Math with the Leap.  In this example, we will compute the dot-product,
+    of hand direction and index finger direction. This is a measure of how close two vectors are.
+  </p>
+
+  <p>
+    Find out more in the <a target="_blank" href="http://glmatrix.net/docs/2.2.0/">GL-Matrix Documentation</a> and
+    <a href="http://en.wikipedia.org/wiki/Dot_product" target="_blank">Wikipedia</a>.
+  </p>
+
+  <p>
+    <img src="images/dot-product.png"/>
+  </p>
+  <div class="panel-body">
           <form class="form-inline" id="todoInputForm">
             <div class="form-group">
-              <input type="text" class="form-control" id="todoTitle" placeholder="Todo Title ...">
+              <input type="text" class="form-control" id="todoTitle" value = "" placeholder="Todo Title ...">
             </div>
             <button type="submit" class="btn btn-primary">Send</button>
           </form><br/>
           <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
           <div class="panel-body" id="postResult"></div>
         </div>
-      </div>
-    </div>
+  <br/>
+  <p>
+    hand.direction &#xb7; hand.indexFinger.direction =
+    <span id="out"></span>
+  </p>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->

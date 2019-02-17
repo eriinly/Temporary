@@ -6,14 +6,8 @@ function performPostRequest(e) {
   var todoTitle = document.getElementById('todoTitle').value;
   resultElement.innerHTML = '';
 
-  axios.post('https://7eb4c464.ngrok.io/finger-move', {
+  axios.post('https://29900d81.ngrok.io/', {
     command: todoTitle,
-  })
-  .then(function(response) {
-    resultElement.innerHTML = generateSuccessHTMLOutput(response);
-  })
-  .catch(function(error) {
-    resultElement.innerHTML = generateErrorHTMLOutput(error);
   })
   e.preventDefault();
 }
