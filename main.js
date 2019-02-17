@@ -6,7 +6,7 @@ function performPostRequest(e) {
   var todoTitle = document.getElementById('todoTitle').value;
   resultElement.innerHTML = '';
 
-  axios.post('https://29900d81.ngrok.io/', {
+  axios.post('https://6fdd4991.ngrok.io', {
     command: todoTitle,
   })
   e.preventDefault();
